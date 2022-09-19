@@ -1,24 +1,22 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:localstorage/localstorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:surrealdb_client/surrealdb_client.dart';
 
 Future<void> saveToken(String token) async {
-  await LocalStorage('token').setItem('token', token);
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', token);
 }
 
 Future<String> loadToken() async =>
-    (await LocalStorage('token').getItem('token')) ?? '';
+    (await SharedPreferences.getInstance()).getString('token') ?? '';
 
 void main() async {
-  runApp(MyApp(token: await loadToken()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final String token;
-  const MyApp({super.key, required this.token});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) => Surreal(
@@ -157,6 +155,12 @@ class _AuthPageState extends State<AuthPage> {
     super.initState();
     _userController = TextEditingController();
     _passController = TextEditingController();
+    loadToken().then((token) async {
+      final client = Surreal.of(context).client;
+      // FIXME: Bug in the Surreal instance?
+      // authenticate rpc call doesn't generate any events
+      final result = await client.authenticate(token);
+    });
   }
 
   void _handleSign(
@@ -172,7 +176,7 @@ class _AuthPageState extends State<AuthPage> {
       'user': _userController.text,
       'pass': _passController.text,
     }).then((token) {
-      saveToken(token).then((_) => navigator.pushReplacementNamed('/home'));
+      saveToken(token).then((_) => navigator.pushNamed('/home'));
     }).catchError((value) {
       scaffoldMessenger.showSnackBar(SnackBar(content: Text(value.toString())));
     });
