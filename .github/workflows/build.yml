@@ -24,9 +24,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: release-ipa
-        path: build/ios/ipa/*.ipa
+          path: build/ios/ipa/*.ipa
       - name: collect aab artifacts
         uses: actions/upload-artifact@v2
         with:
           name: release-aab
-        path: build/app/outputs/bundle/release/*.aab
+          path: build/app/outputs/bundle/release/*.aab
