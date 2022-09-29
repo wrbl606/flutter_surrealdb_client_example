@@ -21,7 +21,7 @@ jobs:
       
       - run: flutter pub get
       - run: flutter build appbundle
-      - run: flutter build ipa
+      - run: flutter build ipa --no-codesign
       
       - name: collect ipa artifacts
         uses: actions/upload-artifact@v2
