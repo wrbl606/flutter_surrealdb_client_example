@@ -1,0 +1,32 @@
+name: Build .aab and .ipa
+
+on:
+  push:
+    branches:
+      - 'development'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    
+      - uses: actions/checkout@v2
+      
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      
+      - run: flutter pub get
+      - run: flutter build appbundle
+      - run: flutter build ipa
+      
+      - name: collect ipa artifacts
+          uses: actions/upload-artifact@v2
+          with:
+             name: release-ipa
+           path: build/ios/ipa/*.ipa
+      - name: collect aab artifacts
+          uses: actions/upload-artifact@v2
+          with:
+             name: release-aab
+           path: build/app/outputs/bundle/release/*.aab
