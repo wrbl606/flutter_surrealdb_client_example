@@ -21,12 +21,12 @@ jobs:
       - run: flutter build ipa
       
       - name: collect ipa artifacts
-          uses: actions/upload-artifact@v2
-          with:
-             name: release-ipa
-           path: build/ios/ipa/*.ipa
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-ipa
+        path: build/ios/ipa/*.ipa
       - name: collect aab artifacts
-          uses: actions/upload-artifact@v2
-          with:
-             name: release-aab
-           path: build/app/outputs/bundle/release/*.aab
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-aab
+        path: build/app/outputs/bundle/release/*.aab
