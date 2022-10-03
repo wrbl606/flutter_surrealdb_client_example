@@ -44,3 +44,8 @@ app.*.map.json
 /android/app/release
 
 .vscode/launch.json
+
+# Ignore platform-specific goldens
+**/goldens/macos
+**/goldens/linux
+**/goldens/windows
