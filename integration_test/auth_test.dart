@@ -11,7 +11,7 @@ void main() {
   });
 
   patrolTest('signs up user', ($) async {
-    await $.pumpWidgetAndSettle(const MyApp());
+    await $.pumpWidgetAndSettle(MyApp());
     await $(TextField).first.enterText('user$timestamp');
     await $(TextField).last.enterText('password$timestamp');
     await $('Sign up').tap();
@@ -25,7 +25,7 @@ void main() {
   });
 
   patrolTest('signs in user', ($) async {
-    await $.pumpWidgetAndSettle(const MyApp());
+    await $.pumpWidgetAndSettle(MyApp());
     await $(TextField).first.enterText('user$timestamp');
     await $(TextField).last.enterText('password$timestamp');
     await $('Sign in').tap();
