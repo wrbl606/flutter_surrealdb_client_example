@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surreal_auth/widget/common/surreal.dart';
+import 'package:surreal_auth/widget/common/theme.dart';
 import 'package:surreal_auth/widget/screens/auth/widget/auth_screen.dart';
 import 'package:surreal_auth/widget/screens/home/widget/home_screen.dart';
 import 'package:surreal_auth/widget/screens/init/widget/init_screen.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         database: 'test',
         child: MaterialApp(
           title: 'Surreal Auth',
-          theme: ThemeData(colorSchemeSeed: Colors.white),
+          theme: theme,
           routes: routes,
         ),
       );
