@@ -45,7 +45,7 @@ app.*.map.json
 
 .vscode/launch.json
 
-# Ignore platform-specific goldens
-**/goldens/macos
-**/goldens/linux
-**/goldens/windows
+# Ignore non-CI golden files and failures
+test/**/goldens/**/*.*
+test/**/failures/**/*.*
+!test/**/goldens/ci/*.*
